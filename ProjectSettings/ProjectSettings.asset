@@ -12,8 +12,8 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: stellation
-  defaultCursor: {fileID: 2800000, guid: c3ddb173455c7dc498ae0ab1a16f0743, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  defaultCursor: {fileID: 0}
+  cursorHotspot: {x: 8, y: 8}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 1024

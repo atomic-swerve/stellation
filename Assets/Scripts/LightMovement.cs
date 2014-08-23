@@ -3,22 +3,16 @@ using System.Collections;
 
 public class LightMovement : MonoBehaviour {
 
-	public Transform goalPosition;
-	public float velocity;
+	public float velocity = .1f;
 
-	public Transform t;
+	Transform t;
 
 	void Awake() {
 		t = transform;
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
-	
+		t.position = Vector3.Lerp (t.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), velocity);
 	}
 }
