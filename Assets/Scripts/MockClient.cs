@@ -12,11 +12,7 @@ public class MockClient : IClient {
 
 	}
 	
-	public override void sendUpdateState(Transform transform) {
-		
-	}
-
-	public override void sendUpdateColour(PlayerColours c) {
+	public override void sendUpdateState(LightController l) {
 		
 	}
 

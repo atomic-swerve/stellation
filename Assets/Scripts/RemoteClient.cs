@@ -4,7 +4,7 @@ using Lidgren.Network;
 
 enum PlayerCommands : byte
 {
-	UserReport, Update, Disconnect, Colour
+	UserReport, Update, Disconnect
 }
 
 public enum PlayerColours : byte
@@ -40,21 +40,13 @@ public class RemoteClient : IClient {
 		m_client.SendMessage(msg, NetDeliveryMethod.ReliableUnordered);
 	}
 	
-	public override void sendUpdateState(Transform t) {
+	public override void sendUpdateState(LightController l) {
 		NetOutgoingMessage msg = m_client.CreateMessage();
 		msg.Write(false);
 		msg.Write((byte)PlayerCommands.Update);
-		msg.Write(t.position.x);
-		msg.Write(t.position.y);
-		
-		m_client.SendMessage(msg, NetDeliveryMethod.UnreliableSequenced);
-	}
-
-	public override void sendUpdateColour(PlayerColours c) {
-		NetOutgoingMessage msg = m_client.CreateMessage();
-		msg.Write(false);
-		msg.Write((byte)PlayerCommands.Colour);
-		msg.Write((byte)c);
+		msg.Write(l.t.position.x);
+		msg.Write(l.t.position.y);
+		msg.Write((byte)l.colour);
 		
 		m_client.SendMessage(msg, NetDeliveryMethod.UnreliableSequenced);
 	}
@@ -68,10 +60,7 @@ public class RemoteClient : IClient {
 				switch ((PlayerCommands)inc.ReadByte()) 
 				{
 				case PlayerCommands.Update:
-					RemoteLightPool.UpdateNetworkPlayer(inc.ReadInt32(), inc.ReadFloat(), inc.ReadFloat());
-					break;
-				case PlayerCommands.Colour:
-					RemoteLightPool.UpdateNetworkPlayerColour(inc.ReadInt32(), (PlayerColours)inc.ReadByte());
+					RemoteLightPool.UpdateNetworkPlayer(inc.ReadInt32(), inc.ReadFloat(), inc.ReadFloat(), (PlayerColours)inc.ReadByte());
 					break;
 				case PlayerCommands.Disconnect:
 					RemoteLightPool.DeactivateNetworkPlayer(inc.ReadInt32());

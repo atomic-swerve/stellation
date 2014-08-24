@@ -16,6 +16,7 @@ public class PlayerLightController : LightController {
 		g = gameObject;
 
 		colour = PlayerColours.White;
+		nearbyLights = new Collider2D[100];
 		
 		particles = GetComponentInChildren<ParticleSystem>();
 
@@ -56,26 +57,17 @@ public class PlayerLightController : LightController {
 		
 		particles.startColor = newColor;
 		l.color = newColor;
-		line.SetColors(newColor,newColor);
 	}
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine("ColourUpdate");
 		setColourState(PlayerColours.White);
-	}
-
-	IEnumerator ColourUpdate() {
-		while (true) {
-			client.sendUpdateColour(colour);
-			yield return new WaitForSeconds(2f);
-		}
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (setGoalPosition()) {
-			client.sendUpdateState(t);
+			client.sendUpdateState(this);
 		}
 		GetLineToNearestLight();
 	}

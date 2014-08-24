@@ -12,6 +12,7 @@ public class RemoteLightController : LightController {
 		particles = GetComponentInChildren<ParticleSystem>();
 		line = GetComponentInChildren<LineRenderer>();
 		colour = PlayerColours.White;
+		nearbyLights = new Collider2D[100];
 	}
 	
 	public void setGoalPosition(float x, float y) {
@@ -43,7 +44,7 @@ public class RemoteLightController : LightController {
 
 		particles.startColor = newColor;
 		l.color = newColor;
-		line.SetColors(newColor,newColor);
+		line.SetColors(newColor, connected == null ? newColor : connected.l.color);
 	}
 
 	void Update() {
