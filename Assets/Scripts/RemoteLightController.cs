@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(LightMovement))]
-public class RemoteLightController : MonoBehaviour {
+public class RemoteLightController : LightController {
 
 	LightMovement movement;
 	Light l;
@@ -20,22 +20,22 @@ public class RemoteLightController : MonoBehaviour {
 		movement.setGoalPosition(new Vector2(x,y));
 	}
 	
-	public void setColourState(PlayerColours c) {
+	public override void setColourState(PlayerColours c) {
 		colour = c;
 		Color newColor;
 
 		switch (c) {
 		case PlayerColours.Red:
-			newColor = new Color(232,50f,50f,150f);
+			newColor = new Color(.9f,.25f,.25f,.7f);
 			break;
 		case PlayerColours.Blue:
-			newColor = new Color(50f,50f,232f,150f);
+			newColor = new Color(.25f,.25f,.9f,.7f);
 			break;
 		case PlayerColours.Green:
-			newColor = new Color(50f,232f,50f,150f);
+			newColor = new Color(.25f,.9f,.25f,.7f);
 			break;
 		default:
-			newColor = new Color(244f,244f,212f,150f);
+			newColor = new Color(.95f,.95f,.85f,.7f);
 			break;
 		}
 
