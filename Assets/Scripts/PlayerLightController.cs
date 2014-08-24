@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(LightMovement))]
-public class PlayerLightController : MonoBehaviour, ILightController {
+public class PlayerLightController : MonoBehaviour {
 
 	public bool useMockClient = true;
 
@@ -32,11 +32,22 @@ public class PlayerLightController : MonoBehaviour, ILightController {
 
 	// Use this for initialization
 	void Start () {
-	
+		StartCoroutine("UpdateServer");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		setGoalPosition();
+	}
+
+	IEnumerator UpdateServer() {
+		while (true) {
+			client.sendUpdateState(t);
+			yield return new WaitForSeconds(.1f);
+		}
+	}
+
+	void OnDisable() {
+		client.disconnectFromServer();
 	}
 }

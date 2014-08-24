@@ -4,7 +4,7 @@ using Lidgren.Network;
 
 public class MockClient : IClient {
 
-	public override void connectToServer(string host, int port, NetOutgoingMessage auth) {
+	public override void connectToServer() {
 
 	}
 
@@ -12,7 +12,7 @@ public class MockClient : IClient {
 
 	}
 
-	public override void sendUpdateState(Transform transform, Target target) {
+	public override void sendUpdateState(Transform transform) {
 
 	}
 
