@@ -10,11 +10,17 @@ public class PlayerLightController : MonoBehaviour {
 	LightMovement movement;
 	Light l;
 	Transform t;
+	PlayerColours colour;
+	ParticleSystem particles;
 
 	void Awake() {
 		movement = GetComponent<LightMovement>();
 		l = GetComponentInChildren<Light>();
 		t = transform;
+
+		colour = PlayerColours.White;
+		
+		particles = GetComponentInChildren<ParticleSystem>();
 
 		if (useMockClient) {
 			client = FindObjectOfType<MockClient>();
@@ -24,26 +30,50 @@ public class PlayerLightController : MonoBehaviour {
 		}
 	}
 
-	public void setGoalPosition() {
-		movement.setGoalPosition((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+	public bool setGoalPosition() {
+		return movement.setGoalPosition((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
 	}
 
-	public void setColourState() {}
+	public void setColourState(PlayerColours c) {
+		colour = c;
+		Color newColor;
+		
+		switch (c) {
+		case PlayerColours.Red:
+			newColor = new Color(232,50f,50f);
+			break;
+		case PlayerColours.Blue:
+			newColor = new Color(50f,50f,232f);
+			break;
+		case PlayerColours.Green:
+			newColor = new Color(50f,232f,50f);
+			break;
+		default:
+			newColor = new Color(244f,244f,212f);
+			break;
+		}
+		
+		particles.startColor = newColor;
+		l.color = newColor;
+	}
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine("UpdateServer");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		setGoalPosition();
+		StartCoroutine("ColourUpdate");
+		setColourState(PlayerColours.White);
 	}
 
-	IEnumerator UpdateServer() {
+	IEnumerator ColourUpdate() {
 		while (true) {
+			client.sendUpdateColour(colour);
+			yield return new WaitForSeconds(1f);
+		}
+	}
+
+	// Update is called once per frame
+	void Update () {
+		if (setGoalPosition()) {
 			client.sendUpdateState(t);
-			yield return new WaitForSeconds(.1f);
 		}
 	}
 

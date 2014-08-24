@@ -70,7 +70,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 2
-  m_Color: {r: 1, g: .970791101, b: .735294104, a: 1}
+  m_Color: {r: .941176474, g: .930485666, b: .844290674, a: 1}
   m_Intensity: 1
   m_Range: 5
   m_SpotAngle: 30
@@ -133,14 +133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c0d9d58e53d054f976d8c8c5f4358e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useMockClient: 1
+  useMockClient: 0
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  lengthInSec: 10
+  lengthInSec: 1
   startDelay: 0
   speed: 1
   randomSeed: 0
@@ -295,13 +295,13 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4287489535
+        rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4290640639
-      minMaxState: 2
+        rgba: 4292211955
+      minMaxState: 0
     startSize:
-      scalar: .800000012
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -368,7 +368,7 @@ ParticleSystem:
       minMaxState: 0
     gravityModifier: 0
     inheritVelocity: .899999976
-    maxNumParticles: 1000
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1

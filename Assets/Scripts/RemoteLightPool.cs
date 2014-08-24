@@ -16,18 +16,26 @@ public class RemoteLightPool : MonoBehaviour {
 			pool[i].SetActive(false);
 		}
 	}
-
+	
 	public static GameObject UpdateNetworkPlayer(int id, float x, float y) {
-		if (id >= pool.Length) return null;
-
+		if (id < 0 || id >= pool.Length) return null;
+		
 		GameObject netPlayer = pool[id];
 		netPlayer.SetActive(true);
 		netPlayer.GetComponent<RemoteLightController>().setGoalPosition(x,y);
 		return netPlayer;
 	}
+	
+	public static GameObject UpdateNetworkPlayerColour(int id, PlayerColours c) {
+		if (id < 0 || id >= pool.Length) return null;
+		
+		GameObject netPlayer = pool[id];
+		netPlayer.GetComponent<RemoteLightController>().setColourState(c);
+		return netPlayer;
+	}
 
 	public static void DeactivateNetworkPlayer(int id) {
-		if (id >= pool.Length) return;
+		if (id < 0 || id >= pool.Length) return;
 
 		pool[id].SetActive(false);
 	}

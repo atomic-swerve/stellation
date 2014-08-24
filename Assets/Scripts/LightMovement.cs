@@ -17,7 +17,15 @@ public class LightMovement : MonoBehaviour {
 		t.position = Vector3.Lerp (t.position, goalPosition, velocity);
 	}
 
-	public void setGoalPosition(Vector2 pos) {
-		goalPosition = pos;
+	public bool setGoalPosition(Vector2 pos) {
+		if (Vector2.Distance(goalPosition, pos) == 0)
+		{
+			return false;
+		}
+		else
+		{
+			goalPosition = pos;
+			return true;
+		}
 	}
 }
