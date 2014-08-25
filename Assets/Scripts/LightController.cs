@@ -13,6 +13,7 @@ public abstract class LightController : MonoBehaviour {
 
 	protected Collider2D[] nearbyLights;
 
+
 	public abstract void setColourState(PlayerColours c);
 
 	protected void GetLineToNearestLight() {
@@ -30,6 +31,7 @@ public abstract class LightController : MonoBehaviour {
 						LightController k = nearbyLights[i].GetComponent<LightController>();
 						if (k.connected != this) {
 							connected = k;
+							AudioManager.playConnectionSFX();
 						}
 					}
 				}
